@@ -1,25 +1,27 @@
-### Hi there 👋
+# Hi, I'm Bimo Alfarrabi 👋
 
-<!--
-**bimoalfarrabi/bimoalfarrabi** is a ✨ _special_ ✨ repository because its `README.md` (this file) appears on your GitHub profile.
+I build practical software and keep learning by shipping real projects.
+My main focus is web development and mobile development.
 
-Here are some ideas to get you started:
+## 🚀 Tech Focus
+- PHP: CodeIgniter 4, Laravel
+- Web: Frontend and full web app development
+- Mobile: Kotlin, Android Studio
+- Database: MySQL
 
-- 🔭 I’m currently working on ...
-- 🌱 I’m currently learning ...
-- 👯 I’m looking to collaborate on ...
-- 🤔 I’m looking for help with ...
-- 💬 Ask me about ...
-- 📫 How to reach me: ...
-- 😄 Pronouns: ...
-- ⚡ Fun fact: ...
--->
+## 💡 What I Like Building
+- Web applications with clean architecture and great user experience
+- Android apps with maintainable Kotlin code
+- CRUD systems and API integrations with reliable database design
 
-Just another amateur dev that learning something new
-
+## 📈 GitHub Stats
 <p align="left">
-<a href="https://github.com/bimalfarrabi">
-  <img height="180em" src="https://github-readme-stats-eight-theta.vercel.app/api?username=bimoalfarrabi&show_icons=true&theme=algolia&include_all_commits=true&count_private=true"/>
-  <img height="180em" src="https://github-readme-stats-eight-theta.vercel.app/api/top-langs/?username=bimoalfarrabi&layout=compact&langs_count=8&theme=algolia"/>
-</a>
+  <a href="https://github.com/bimoalfarrabi">
+    <img height="180em" src="https://github-readme-stats.vercel.app/api?username=bimoalfarrabi&show_icons=true&include_all_commits=true&count_private=true"/>
+    <img height="180em" src="https://github-readme-stats.vercel.app/api/top-langs/?username=bimoalfarrabi&layout=compact&langs_count=8"/>
+  </a>
 </p>
+
+## 🤝 Let's Connect
+- Open to collaboration on web development or Android projects
+- Reach me via GitHub Discussions/Issues on my repositories
