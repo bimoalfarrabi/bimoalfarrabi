@@ -28,8 +28,8 @@ My focus is web development (frontend included) and mobile development.
 
 ## GitHub Stats
 <p align="center">
-  <img height="165" src="https://github-readme-stats.vercel.app/api?username=bimoalfarrabi&show_icons=true&include_all_commits=true&count_private=true" />
-  <img height="165" src="https://github-readme-stats.vercel.app/api/top-langs/?username=bimoalfarrabi&layout=compact&langs_count=8" />
+  <img height="165" src="https://github-readme-stats-eight-theta.vercel.app/api?username=bimoalfarrabi&show_icons=true&include_all_commits=true&count_private=true&theme=algolia&cache_seconds=1800" alt="Bimo GitHub stats" />
+  <img height="165" src="https://github-readme-stats-eight-theta.vercel.app/api/top-langs/?username=bimoalfarrabi&layout=compact&langs_count=8&theme=algolia&cache_seconds=1800" alt="Bimo top languages" />
 </p>
 
 ## Let's Connect
