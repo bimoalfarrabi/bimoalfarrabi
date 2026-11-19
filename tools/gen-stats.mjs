@@ -16,6 +16,51 @@ const C = {
   amber: "#FFB347",
 };
 
+// Official GitHub linguist colours. A few are near-black because linguist
+// targets light backgrounds, so readableOnDark() lifts those for the void.
+const LANG_COLORS = {
+  Assembly: "#6E4C13",
+  Blade: "#f7523f",
+  C: "#555555",
+  "C#": "#178600",
+  "C++": "#f34b7d",
+  CSS: "#563d7c",
+  Dart: "#00B4AB",
+  GDScript: "#355570",
+  Go: "#00ADD8",
+  HTML: "#e34c26",
+  Java: "#b07219",
+  JavaScript: "#f1e05a",
+  Kotlin: "#A97BFF",
+  Lua: "#000080",
+  Makefile: "#427819",
+  "Objective-C": "#438eff",
+  PHP: "#4F5D95",
+  Python: "#3572A5",
+  Ruby: "#701516",
+  Rust: "#dea584",
+  Shell: "#89e051",
+  Swift: "#F05138",
+  TypeScript: "#3178c6",
+  Vue: "#41b883",
+};
+const FALLBACK_LANG_COLOR = "#8B949E";
+
+function readableOnDark(hex) {
+  const r = parseInt(hex.slice(1, 3), 16);
+  const g = parseInt(hex.slice(3, 5), 16);
+  const b = parseInt(hex.slice(5, 7), 16);
+  const lum = 0.2126 * r + 0.7152 * g + 0.0722 * b;
+  if (lum >= 90) return hex;
+  const t = Math.min(0.78, (90 - lum) / (255 - lum));
+  const mix = (c) => Math.round(c + (255 - c) * t);
+  return `#${[mix(r), mix(g), mix(b)].map((v) => v.toString(16).padStart(2, "0")).join("")}`;
+}
+
+function colorFor(name) {
+  return readableOnDark(LANG_COLORS[name] || FALLBACK_LANG_COLOR);
+}
+
 const headers = {
   Accept: "application/vnd.github+json",
   "User-Agent": "bimoalfarrabi-readme-stats",
@@ -107,10 +152,6 @@ function textPath(str, font, scale, x, y, color, opacity = 1) {
   return `<path d="${parts.join("")}" fill="${color}"${opacity !== 1 ? ` fill-opacity="${opacity}"` : ""}/>`;
 }
 
-function opacityFor(pct) {
-  return Math.min(1, 0.35 + (pct / 100) * 1.6).toFixed(2);
-}
-
 function statRow(label, value, y, valueX) {
   return (
     textPath(label, "mini", 4, 40, y, C.text) +
@@ -169,7 +210,7 @@ function langsCard(d) {
   const segs = d.topLangs
     .map((l, i) => {
       const w = widths[i];
-      const rect = `<rect x="${cursor}" y="${barY}" width="${w}" height="16" fill="${C.phos}" fill-opacity="${opacityFor(l.pct)}"/>`;
+      const rect = `<rect x="${cursor}" y="${barY}" width="${w}" height="16" fill="${colorFor(l.name)}"/>`;
       cursor += w;
       return rect;
     })
@@ -182,7 +223,7 @@ function langsCard(d) {
       const x = 40 + col * 280;
       const y = 100 + row * 26;
       return (
-        `<rect x="${x}" y="${y + 6}" width="8" height="8" fill="${C.phos}" fill-opacity="${opacityFor(l.pct)}"/>` +
+        `<rect x="${x}" y="${y + 6}" width="8" height="8" fill="${colorFor(l.name)}"/>` +
         textPath(`${l.name.toUpperCase()} ${l.pct.toFixed(1)}%`, "mini", 4, x + 16, y, C.text)
       );
     })
