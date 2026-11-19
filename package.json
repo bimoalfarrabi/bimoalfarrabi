@@ -1,0 +1,8 @@
+{
+  "name": "bimoalfarrabi-profile",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "stats": "node tools/gen-stats.mjs"
+  }
+}
