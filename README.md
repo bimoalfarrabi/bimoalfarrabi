@@ -32,8 +32,8 @@ My focus is web development (frontend included) and mobile development.
 
 ## GitHub Stats
 <p align="center">
-  <img width="560" src="assets/stats.svg" alt="Bimo GitHub stats: stars, commits, pull requests, issues, followers" />
-  <img width="620" src="assets/langs.svg" alt="Bimo most used languages" />
+  <img width="600" src="assets/stats.svg" alt="Bimo GitHub stats: stars, commits, pull requests, issues, followers" />
+  <img width="600" src="assets/langs.svg" alt="Bimo most used languages" />
 </p>
 
 ## Let's Connect

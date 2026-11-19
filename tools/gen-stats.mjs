@@ -127,8 +127,8 @@ function frame(W, H) {
 }
 
 function statsCard(d) {
-  const W = 560;
-  const H = 200;
+  const W = 600;
+  const H = 230;
   const rows = [
     ["TOTAL STARS", d.stars],
     ["PUBLIC COMMITS", d.commits],
@@ -136,7 +136,7 @@ function statsCard(d) {
     ["ISSUES OPENED", d.issues],
     ["FOLLOWERS", d.followers],
   ];
-  const body = rows.map(([l, v], i) => statRow(l, v, 64 + i * 26, 400)).join("");
+  const body = rows.map(([l, v], i) => statRow(l, v, 68 + i * 30, 440)).join("");
 
   return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${W} ${H}" width="${W}" height="${H}" role="img" shape-rendering="crispEdges">
   <title>Bimo Alfarrabi GitHub stats</title>
@@ -158,9 +158,9 @@ function segWidths(langs, barW) {
 }
 
 function langsCard(d) {
-  const W = 620;
+  const W = 600;
   const H = 230;
-  const barW = 540;
+  const barW = 520;
   const barX = 40;
   const barY = 56;
   const widths = segWidths(d.topLangs, barW);
@@ -179,7 +179,7 @@ function langsCard(d) {
     .map((l, i) => {
       const col = i % 2;
       const row = Math.floor(i / 2);
-      const x = 40 + col * 290;
+      const x = 40 + col * 280;
       const y = 100 + row * 26;
       return (
         `<rect x="${x}" y="${y + 6}" width="8" height="8" fill="${C.phos}" fill-opacity="${opacityFor(l.pct)}"/>` +
