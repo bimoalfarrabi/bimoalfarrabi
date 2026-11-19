@@ -32,7 +32,7 @@ My focus is web development (frontend included) and mobile development.
 
 ## GitHub Stats
 <p align="center">
-  <img height="165" src="https://github-readme-stats.vercel.app/api?username=bimoalfarrabi&show_icons=true&include_all_commits=true&bg_color=05070A&title_color=3BFF8F&text_color=C8D6CE&icon_color=3BFF8F&border_color=0E3B24&border_radius=6&cache_seconds=1800" alt="Bimo GitHub stats" />
+  <img height="165" src="https://github-readme-stats.vercel.app/api?username=bimoalfarrabi&show_icons=true&include_all_commits=true&rank_icon=percentile&bg_color=05070A&title_color=3BFF8F&text_color=C8D6CE&icon_color=3BFF8F&border_color=0E3B24&border_radius=6&cache_seconds=1800" alt="Bimo GitHub stats" />
   <img height="165" src="https://github-readme-stats.vercel.app/api/top-langs/?username=bimoalfarrabi&layout=compact&langs_count=8&exclude_repo=AKmunch,android_kernel_xiaomi_sm8250_n0kontzzz,jdih-tambong,project-skp,STRIX-X00T,Struktur-Data-UTS,stuka-34,tes2,UAS-Struktur-Data,uts-web-lanjut&bg_color=05070A&title_color=3BFF8F&text_color=C8D6CE&border_color=0E3B24&border_radius=6&cache_seconds=1800" alt="Bimo top languages" />
 </p>
 
