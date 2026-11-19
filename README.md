@@ -1,9 +1,5 @@
 <p align="center">
-  <img src="https://capsule-render.vercel.app/api?type=waving&color=0:0ea5e9,100:22c55e&height=170&section=header&text=Bimo%20Alfarrabi&fontSize=38&fontColor=ffffff&animation=fadeIn" alt="header" />
-</p>
-
-<p align="center">
-  <img src="https://readme-typing-svg.demolab.com?font=Fira+Code&size=22&pause=1200&color=0EA5E9&center=true&vCenter=true&width=700&lines=Web+Developer+(Frontend+%2B+Full+Web+App);PHP+%7C+CodeIgniter+4+%7C+Laravel;Kotlin+%7C+Android+Studio+%7C+MySQL;Always+learning%2C+always+shipping" alt="Typing SVG" />
+  <img src="assets/hero.svg" width="1200" height="320" alt="Bimo Alfarrabi, Web Developer" />
 </p>
 
 ## About Me
@@ -13,19 +9,19 @@ My focus is web development (frontend included) and mobile development.
 ## Tech Stack
 <p>
   <!-- Frontend -->
-  <img src="https://img.shields.io/badge/React-61DAFB?style=for-the-badge&logo=react&logoColor=black" />
-  <img src="https://img.shields.io/badge/Vue.js-4FC08D?style=for-the-badge&logo=vue.js&logoColor=white" />
-  <img src="https://img.shields.io/badge/Svelte-FF3E00?style=for-the-badge&logo=svelte&logoColor=white" />
-  <img src="https://img.shields.io/badge/Tailwind_CSS-06B6D4?style=for-the-badge&logo=tailwind-css&logoColor=white" />
+  <img src="https://img.shields.io/badge/React-61DAFB?style=for-the-badge&logo=react&logoColor=black" alt="React" />
+  <img src="https://img.shields.io/badge/Vue.js-4FC08D?style=for-the-badge&logo=vue.js&logoColor=white" alt="Vue.js" />
+  <img src="https://img.shields.io/badge/Svelte-FF3E00?style=for-the-badge&logo=svelte&logoColor=white" alt="Svelte" />
+  <img src="https://img.shields.io/badge/Tailwind_CSS-06B6D4?style=for-the-badge&logo=tailwind-css&logoColor=white" alt="Tailwind CSS" />
   <!-- Backend -->
-  <img src="https://img.shields.io/badge/PHP-777BB4?style=for-the-badge&logo=php&logoColor=white" />
-  <img src="https://img.shields.io/badge/CodeIgniter4-EF4223?style=for-the-badge&logo=codeigniter&logoColor=white" />
-  <img src="https://img.shields.io/badge/Laravel-FF2D20?style=for-the-badge&logo=laravel&logoColor=white" />
+  <img src="https://img.shields.io/badge/PHP-777BB4?style=for-the-badge&logo=php&logoColor=white" alt="PHP" />
+  <img src="https://img.shields.io/badge/CodeIgniter4-EF4223?style=for-the-badge&logo=codeigniter&logoColor=white" alt="CodeIgniter 4" />
+  <img src="https://img.shields.io/badge/Laravel-FF2D20?style=for-the-badge&logo=laravel&logoColor=white" alt="Laravel" />
   <!-- Mobile -->
-  <img src="https://img.shields.io/badge/Kotlin-7F52FF?style=for-the-badge&logo=kotlin&logoColor=white" />
-  <img src="https://img.shields.io/badge/Android_Studio-3DDC84?style=for-the-badge&logo=android-studio&logoColor=white" />
+  <img src="https://img.shields.io/badge/Kotlin-7F52FF?style=for-the-badge&logo=kotlin&logoColor=white" alt="Kotlin" />
+  <img src="https://img.shields.io/badge/Android_Studio-3DDC84?style=for-the-badge&logo=android-studio&logoColor=white" alt="Android Studio" />
   <!-- Database -->
-  <img src="https://img.shields.io/badge/MySQL-4479A1?style=for-the-badge&logo=mysql&logoColor=white" />
+  <img src="https://img.shields.io/badge/MySQL-4479A1?style=for-the-badge&logo=mysql&logoColor=white" alt="MySQL" />
 </p>
 
 ## What I Like Building
@@ -36,8 +32,8 @@ My focus is web development (frontend included) and mobile development.
 
 ## GitHub Stats
 <p align="center">
-  <img height="165" src="https://github-readme-stats-eight-theta.vercel.app/api?username=bimoalfarrabi&show_icons=true&include_all_commits=true&count_private=true&theme=algolia&cache_seconds=1800" alt="Bimo GitHub stats" />
-  <img height="165" src="https://github-readme-stats-eight-theta.vercel.app/api/top-langs/?username=bimoalfarrabi&layout=compact&langs_count=8&theme=algolia&cache_seconds=1800" alt="Bimo top languages" />
+  <img height="165" src="https://github-readme-stats.vercel.app/api?username=bimoalfarrabi&show_icons=true&include_all_commits=true&bg_color=05070A&title_color=3BFF8F&text_color=C8D6CE&icon_color=3BFF8F&border_color=0E3B24&border_radius=6&cache_seconds=1800" alt="Bimo GitHub stats" />
+  <img height="165" src="https://github-readme-stats.vercel.app/api/top-langs/?username=bimoalfarrabi&layout=compact&langs_count=8&bg_color=05070A&title_color=3BFF8F&text_color=C8D6CE&border_color=0E3B24&border_radius=6&cache_seconds=1800" alt="Bimo top languages" />
 </p>
 
 ## Let's Connect

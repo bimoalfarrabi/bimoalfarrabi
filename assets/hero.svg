@@ -1,0 +1,160 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 320" width="1200" height="320" role="img">
+  <title>Bimo Alfarrabi, Web Developer</title>
+  <desc>CRT phosphor hero: name and stack on the left, an abstract astronaut visor with a HUD reticle on the right.</desc>
+
+  <defs>
+    <radialGradient id="glow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#3BFF8F" stop-opacity="0.14"/>
+      <stop offset="100%" stop-color="#3BFF8F" stop-opacity="0"/>
+    </radialGradient>
+
+    <radialGradient id="vignette" cx="50%" cy="50%" r="72%">
+      <stop offset="0%" stop-color="#05070A" stop-opacity="0"/>
+      <stop offset="68%" stop-color="#05070A" stop-opacity="0"/>
+      <stop offset="100%" stop-color="#05070A" stop-opacity="0.6"/>
+    </radialGradient>
+
+    <pattern id="visorScan" width="6" height="4" patternUnits="userSpaceOnUse">
+      <rect width="6" height="1" fill="#3BFF8F" opacity="0.16"/>
+    </pattern>
+
+    <pattern id="crtScan" width="4" height="3" patternUnits="userSpaceOnUse">
+      <rect width="4" height="1" fill="#3BFF8F" opacity="0.06"/>
+    </pattern>
+
+    <clipPath id="visorClip">
+      <rect x="854" y="94" width="152" height="120" rx="36"/>
+    </clipPath>
+
+    <linearGradient id="glass" x1="0" y1="0" x2="0.7" y2="1">
+      <stop offset="0%" stop-color="#3BFF8F" stop-opacity="0.16"/>
+      <stop offset="45%" stop-color="#3BFF8F" stop-opacity="0.02"/>
+      <stop offset="100%" stop-color="#3BFF8F" stop-opacity="0"/>
+    </linearGradient>
+
+    <style>
+      .mono { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace; }
+      .sans { font-family: ui-sans-serif, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; }
+      @media (prefers-reduced-motion: no-preference) {
+        .scan { animation: drift 8s linear infinite; }
+        .cursor { animation: blink 1.1s steps(1) infinite; }
+        @keyframes drift {
+          from { transform: translateY(0); }
+          to   { transform: translateY(3px); }
+        }
+        @keyframes blink {
+          0%, 49%   { opacity: 1; }
+          50%, 100% { opacity: 0; }
+        }
+      }
+    </style>
+  </defs>
+
+  <!-- void -->
+  <rect width="1200" height="320" fill="#05070A"/>
+
+  <!-- phosphor bloom behind the helmet -->
+  <circle cx="930" cy="160" r="215" fill="url(#glow)"/>
+
+  <!-- starfield -->
+  <g fill="#C8D6CE">
+    <circle cx="40" cy="30" r="1.2" opacity="0.5"/>
+    <circle cx="120" cy="70" r="0.8" opacity="0.3"/>
+    <circle cx="210" cy="24" r="1.0" opacity="0.45"/>
+    <circle cx="300" cy="58" r="0.7" opacity="0.25"/>
+    <circle cx="390" cy="18" r="1.3" opacity="0.5"/>
+    <circle cx="470" cy="44" r="0.8" opacity="0.3"/>
+    <circle cx="560" cy="26" r="1.0" opacity="0.4"/>
+    <circle cx="650" cy="62" r="0.7" opacity="0.25"/>
+    <circle cx="740" cy="20" r="1.1" opacity="0.45"/>
+    <circle cx="830" cy="50" r="0.8" opacity="0.3"/>
+    <circle cx="920" cy="28" r="1.2" opacity="0.5"/>
+    <circle cx="1010" cy="66" r="0.7" opacity="0.25"/>
+    <circle cx="1100" cy="22" r="1.0" opacity="0.4"/>
+    <circle cx="1160" cy="58" r="0.8" opacity="0.3"/>
+    <circle cx="70" cy="120" r="0.7" opacity="0.2"/>
+    <circle cx="160" cy="150" r="0.9" opacity="0.25"/>
+    <circle cx="250" cy="110" r="0.6" opacity="0.2"/>
+    <circle cx="340" cy="170" r="0.8" opacity="0.22"/>
+    <circle cx="430" cy="130" r="0.7" opacity="0.2"/>
+    <circle cx="520" cy="180" r="0.9" opacity="0.25"/>
+    <circle cx="610" cy="120" r="0.6" opacity="0.2"/>
+    <circle cx="700" cy="160" r="0.8" opacity="0.22"/>
+    <circle cx="790" cy="110" r="0.7" opacity="0.2"/>
+    <circle cx="880" cy="180" r="0.9" opacity="0.25"/>
+    <circle cx="970" cy="120" r="0.6" opacity="0.2"/>
+    <circle cx="1060" cy="170" r="0.8" opacity="0.22"/>
+    <circle cx="1150" cy="130" r="0.7" opacity="0.2"/>
+    <circle cx="50" cy="250" r="0.8" opacity="0.25"/>
+    <circle cx="140" cy="290" r="0.6" opacity="0.2"/>
+    <circle cx="230" cy="260" r="0.9" opacity="0.25"/>
+    <circle cx="320" cy="300" r="0.7" opacity="0.2"/>
+    <circle cx="410" cy="270" r="0.8" opacity="0.22"/>
+    <circle cx="500" cy="305" r="0.6" opacity="0.2"/>
+    <circle cx="590" cy="265" r="0.9" opacity="0.25"/>
+    <circle cx="680" cy="295" r="0.7" opacity="0.2"/>
+    <circle cx="770" cy="255" r="0.8" opacity="0.22"/>
+    <circle cx="860" cy="300" r="0.6" opacity="0.2"/>
+    <circle cx="950" cy="270" r="0.9" opacity="0.25"/>
+    <circle cx="1040" cy="305" r="0.7" opacity="0.2"/>
+    <circle cx="1130" cy="265" r="0.8" opacity="0.22"/>
+  </g>
+
+  <!-- helmet -->
+  <g>
+    <!-- ghost pass: CRT ghosting -->
+    <g opacity="0.12" transform="translate(2,2)">
+      <path d="M 816 214 C 816 100 860 46 930 46 C 1000 46 1044 100 1044 214 C 1044 254 1000 278 930 278 C 860 278 816 254 816 214 Z" fill="none" stroke="#3BFF8F" stroke-width="1.5"/>
+      <rect x="854" y="94" width="152" height="120" rx="36" fill="none" stroke="#3BFF8F" stroke-width="1.5"/>
+    </g>
+
+    <!-- shell -->
+    <path d="M 816 214 C 816 100 860 46 930 46 C 1000 46 1044 100 1044 214 C 1044 254 1000 278 930 278 C 860 278 816 254 816 214 Z" fill="none" stroke="#3BFF8F" stroke-opacity="0.55" stroke-width="1.5"/>
+
+    <!-- visor -->
+    <rect x="854" y="94" width="152" height="120" rx="36" fill="url(#visorScan)" stroke="#3BFF8F" stroke-opacity="0.6" stroke-width="1.5"/>
+    <rect x="854" y="94" width="152" height="120" fill="url(#glass)" clip-path="url(#visorClip)"/>
+    <path d="M 874 110 C 890 98 910 94 930 94" fill="none" stroke="#3BFF8F" stroke-opacity="0.5" stroke-width="1.5" stroke-linecap="round"/>
+
+    <!-- neck ring -->
+    <ellipse cx="930" cy="278" rx="62" ry="9" fill="none" stroke="#3BFF8F" stroke-opacity="0.35" stroke-width="1"/>
+
+    <!-- side pods -->
+    <rect x="802" y="150" width="14" height="44" rx="4" fill="none" stroke="#3BFF8F" stroke-opacity="0.4" stroke-width="1"/>
+    <rect x="1044" y="150" width="14" height="44" rx="4" fill="none" stroke="#3BFF8F" stroke-opacity="0.4" stroke-width="1"/>
+
+    <!-- single accent: status light on the pod -->
+    <circle cx="1051" cy="172" r="3" fill="#FFB347"/>
+
+    <!-- HUD framing brackets -->
+    <g stroke="#3BFF8F" stroke-opacity="0.3" stroke-width="1.5" fill="none">
+      <path d="M 790 74 L 790 60 L 804 60"/>
+      <path d="M 1070 60 L 1084 60 L 1084 74"/>
+      <path d="M 790 286 L 790 300 L 804 300"/>
+      <path d="M 1070 300 L 1084 300 L 1084 286"/>
+    </g>
+  </g>
+
+  <!-- vignette -->
+  <rect width="1200" height="320" fill="url(#vignette)"/>
+
+  <!-- identity block -->
+  <g>
+    <text class="mono" x="64" y="96" font-size="12.5" letter-spacing="3" fill="#3BFF8F" fill-opacity="0.85">// MISSION LOG</text>
+
+    <text class="sans" x="64" y="156" font-size="52" font-weight="700" letter-spacing="2" fill="#E8F2EC">BIMO ALFARRABI</text>
+
+    <text class="mono" x="64" y="194" font-size="18" fill="#3BFF8F">Web Developer · PHP · CodeIgniter 4 · Laravel · Kotlin</text>
+    <rect class="cursor" x="656" y="179" width="2" height="19" fill="#3BFF8F"/>
+
+    <line x1="64" y1="216" x2="600" y2="216" stroke="#0E3B24" stroke-width="1"/>
+
+    <text class="mono" x="64" y="244" font-size="13" font-weight="500" letter-spacing="1.5" fill="#E8F2EC">FRONTEND<tspan fill="#3BFF8F" fill-opacity="0.6"> · </tspan>BACKEND<tspan fill="#3BFF8F" fill-opacity="0.6"> · </tspan>MOBILE<tspan fill="#3BFF8F" fill-opacity="0.6"> · </tspan>MYSQL</text>
+  </g>
+
+  <!-- CRT scanline overlay -->
+  <rect class="scan" x="0" y="-3" width="1200" height="326" fill="url(#crtScan)" shape-rendering="crispEdges"/>
+
+  <!-- frame -->
+  <rect x="0.5" y="0.5" width="1199" height="319" fill="none" stroke="#0E3B24" stroke-width="1"/>
+</svg>
