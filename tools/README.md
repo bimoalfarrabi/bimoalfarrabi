@@ -1,67 +1,81 @@
 # Count private contributions in the stats card
 
 The stats card reads `STATS_TOKEN` from the repository secrets. When that secret
-is set, the card counts private repositories too, so commits made in private
-work show up. When it is absent, the card falls back to public data and still
-renders normally.
+is set and the token can actually see private repositories, the card counts
+private work too. Otherwise it falls back to public data and shows a
+`PUBLIC ONLY` badge.
+
+## Use a classic token, not fine-grained
+
+This matters and is easy to get wrong.
+
+The commit count comes from `GET /search/commits`. GitHub filters search results
+down to what the token is allowed to index, and a **fine-grained** token with
+`Metadata: Read-only` still returns public commits only. Verified on this repo:
+the fine-grained token returned 1,431 commits (the public figure), while a
+**classic** token with the `repo` scope returned 4,322.
+
+A classic token is broader than ideal, so give it an expiration date and rotate
+it.
 
 ## One-time setup
 
-1. Create a fine-grained personal access token at
-   <https://github.com/settings/personal-access-tokens/new>
+1. Create a **classic** personal access token at
+   <https://github.com/settings/tokens/new>
 
    | Field | Value |
    |---|---|
-   | Token name | `readme-stats` |
-   | Expiration | 90 days (renew when it lapses) |
-   | Resource owner | your own account |
-   | Repository access | All repositories |
-   | Permissions | Repository permissions, **Metadata: Read-only** |
+   | Note | `readme-stats` |
+   | Expiration | 90 days |
+   | Scopes | **`repo`** (nothing else needed) |
 
-   Search APIs (`/search/commits`, `/search/issues`) need only Metadata read,
-   which is the minimum scope that makes private counts visible.
-
-2. Add it as a repository secret:
+2. Store it as a repository secret:
 
    ```bash
    gh secret set STATS_TOKEN --repo bimoalfarrabi/bimoalfarrabi
    ```
 
-   Paste the token when prompted.
-
-3. Trigger the workflow once:
+3. Run the workflow:
 
    ```bash
    gh workflow run stats.yml --repo bimoalfarrabi/bimoalfarrabi
    ```
 
-## Verify
+## Verify it actually worked
 
 ```bash
 gh run list --workflow=stats.yml --limit 1
+gh run view --log <run-id> | grep -E "commitsAll|commitsPublic|privateVisible"
 ```
 
-The run log prints the collected numbers. `"includesPrivate": true` means the
-secret is being read and private activity is counted.
+With `STATS_DEBUG` unset the workflow prints only the final numbers. To see the
+diagnostic block, add `STATS_DEBUG: "1"` to the `Generate cards` step env.
+Expected with a working token:
+
+```
+commitsAll: 4322      commitsPublic: 1431      privateVisible: true
+```
+
+`privateVisible: false` means the token cannot see private commits, and the card
+correctly falls back to public counts.
 
 ## What each number means
 
 | Label | Source |
 |---|---|
 | `TOTAL COMMITS` | `search/commits` as author, private included |
-| `PUBLIC COMMITS` | same query restricted with `is:public` (used when no PAT) |
+| `PUBLIC COMMITS` | same query with `is:public` (used when private is not visible) |
 | `PULL REQUESTS` | `search/issues` type:pr as author |
 | `ISSUES OPENED` | `search/issues` type:issue as author |
 | `TOTAL STARS` | sum of `stargazers_count` over owned repos |
 | `FOLLOWERS` | `users/:login.followers` |
 
-The card shows an `INCL PRIVATE` badge in the header whenever private data is
-included, so the scope is never ambiguous.
+The card shows `INCL PRIVATE` only when private commits are genuinely visible,
+so the badge can never overstate the scope.
 
 ## Security notes
 
-- The token is read only in the `Generate cards` step and is never echoed. The
-  script never prints it.
+- The token is read only in the `Generate cards` step and is never echoed.
 - Nothing is written to the repository except the two SVG files.
-- Rotate the token when it expires, or the card silently falls back to public
-  counts (the badge disappears, which is the signal).
+- When the token expires the badge disappears and counts return to public, which
+  is the visible signal to rotate it.

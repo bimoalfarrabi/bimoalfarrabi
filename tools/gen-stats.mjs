@@ -124,8 +124,6 @@ async function collect() {
     ? await paginate(`https://api.github.com/user/repos?affiliation=owner&visibility=all`)
     : await paginate(`https://api.github.com/users/${USER}/repos?type=owner`);
 
-  const visibility = INCLUDES_PRIVATE ? "" : " is:public";
-
   const search = async (q) => {
     const r = await get(
       `https://api.github.com/search/issues?q=${encodeURIComponent(q)}&per_page=1`,
@@ -133,9 +131,36 @@ async function collect() {
     return r.total_count;
   };
 
-  const commitsRes = await get(
-    `https://api.github.com/search/commits?q=${encodeURIComponent(`author:${USER}${visibility}`)}&per_page=1`,
-  );
+  // Commit search silently omits repos the token cannot index, so compare the
+  // unfiltered query with the public-only one. Equal counts mean the token is
+  // not actually seeing private commits, and the card must not claim it is.
+  const commitsAll = (
+    await get(`https://api.github.com/search/commits?q=${encodeURIComponent(`author:${USER}`)}&per_page=1`)
+  ).total_count;
+  const commitsPublic = (
+    await get(
+      `https://api.github.com/search/commits?q=${encodeURIComponent(`author:${USER} is:public`)}&per_page=1`,
+    )
+  ).total_count;
+  const privateVisible = INCLUDES_PRIVATE && commitsAll > commitsPublic;
+
+  let scopes = "unknown";
+  try {
+    const probe = await fetch("https://api.github.com/user", { headers });
+    scopes = probe.headers.get("x-oauth-scopes") ?? "fine-grained";
+  } catch {
+    // diagnostics only
+  }
+
+  if (process.env.STATS_DEBUG) {
+    console.error(
+      JSON.stringify(
+        { includesPrivate: INCLUDES_PRIVATE, commitsAll, commitsPublic, privateVisible, scopes },
+        null,
+        2,
+      ),
+    );
+  }
 
   const stars = repos.reduce((a, r) => a + r.stargazers_count, 0);
 
@@ -146,13 +171,19 @@ async function collect() {
     .slice(0, 6)
     .map(([name, b]) => ({ name, pct: (b / totalBytes) * 100 }));
 
+  const visibility = privateVisible ? "" : " is:public";
+  const prsAll = await search(`author:${USER} type:pr`);
+  const prsPublic = await search(`author:${USER} type:pr is:public`);
+  const issuesAll = await search(`author:${USER} type:issue`);
+  const issuesPublic = await search(`author:${USER} type:issue is:public`);
+
   return {
     stars,
-    commits: commitsRes.total_count,
-    prs: await search(`author:${USER} type:pr${visibility}`),
-    issues: await search(`author:${USER} type:issue${visibility}`),
+    commits: privateVisible ? commitsAll : commitsPublic,
+    prs: privateVisible ? prsAll : prsPublic,
+    issues: privateVisible ? issuesAll : issuesPublic,
     followers: user.followers,
-    includesPrivate: INCLUDES_PRIVATE,
+    includesPrivate: privateVisible,
     topLangs,
   };
 }
