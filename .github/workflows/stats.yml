@@ -29,14 +29,16 @@ jobs:
         with:
           node-version: "22"
 
+      # Push runs only validate that the generator still works; committing on
+      # push would race with the very push that started the run.
       - name: Generate cards
         env:
           STATS_TOKEN: ${{ secrets.STATS_TOKEN }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          STATS_DEBUG: "1"
         run: node tools/gen-stats.mjs
 
       - name: Commit if changed
+        if: github.event_name != 'push'
         run: |
           if [ -z "$(git status --porcelain assets/stats.svg assets/langs.svg)" ]; then
             echo "No changes."
