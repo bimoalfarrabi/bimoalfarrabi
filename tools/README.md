@@ -50,6 +50,10 @@ gh run view --log <run-id> | grep -E "commitsAll|commitsPublic|privateVisible"
 
 With `STATS_DEBUG` unset the workflow prints only the final numbers. To see the
 diagnostic block, add `STATS_DEBUG: "1"` to the `Generate cards` step env.
+`PROJECTS CONTRIBUTED` needs GraphQL, which only works with an authenticated
+token. When GraphQL is unavailable the row is omitted instead of showing a
+guessed number.
+
 Expected with a working token:
 
 ```
@@ -67,6 +71,7 @@ correctly falls back to public counts.
 | `PUBLIC COMMITS` | same query with `is:public` (used when private is not visible) |
 | `PULL REQUESTS` | `search/issues` type:pr as author |
 | `ISSUES OPENED` | `search/issues` type:issue as author |
+| `PROJECTS CONTRIBUTED` | GraphQL `repositoriesContributedTo(includeUserRepositories: true).totalCount` |
 | `TOTAL STARS` | sum of `stargazers_count` over owned repos |
 | `FOLLOWERS` | `users/:login.followers` |
 

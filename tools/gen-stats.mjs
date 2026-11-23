@@ -82,6 +82,18 @@ async function get(url, attempt = 0) {
   return res.json();
 }
 
+async function graphql(query, variables) {
+  const res = await fetch("https://api.github.com/graphql", {
+    method: "POST",
+    headers: { ...headers, "Content-Type": "application/json" },
+    body: JSON.stringify({ query, variables }),
+  });
+  if (!res.ok) throw new Error(`${res.status} ${res.statusText} for graphql`);
+  const body = await res.json();
+  if (body.errors) throw new Error(body.errors.map((e) => e.message).join("; "));
+  return body.data;
+}
+
 async function paginate(url) {
   const out = [];
   for (let page = 1; page <= 10; page++) {
@@ -177,11 +189,31 @@ async function collect() {
   const issuesAll = await search(`author:${USER} type:issue`);
   const issuesPublic = await search(`author:${USER} type:issue is:public`);
 
+  // Distinct repositories this account has contributed to. A classic token
+  // with the repo scope makes GraphQL include private repositories too.
+  let projects = null;
+  try {
+    const data = await graphql(
+      `query($login: String!) {
+        user(login: $login) {
+          repositoriesContributedTo(first: 1, includeUserRepositories: true) {
+            totalCount
+          }
+        }
+      }`,
+      { login: USER },
+    );
+    projects = data.user.repositoriesContributedTo.totalCount;
+  } catch {
+    // Without GraphQL access the row is omitted rather than guessed.
+  }
+
   return {
     stars,
     commits: privateVisible ? commitsAll : commitsPublic,
     prs: privateVisible ? prsAll : prsPublic,
     issues: privateVisible ? issuesAll : issuesPublic,
+    projects,
     followers: user.followers,
     includesPrivate: privateVisible,
     topLangs,
@@ -217,11 +249,12 @@ function statsCard(d) {
   const rows = [
     ["TOTAL STARS", d.stars],
     [d.includesPrivate ? "TOTAL COMMITS" : "PUBLIC COMMITS", d.commits],
+    ...(d.projects == null ? [] : [["PROJECTS CONTRIBUTED", d.projects]]),
     ["PULL REQUESTS", d.prs],
     ["ISSUES OPENED", d.issues],
     ["FOLLOWERS", d.followers],
   ];
-  const body = rows.map(([l, v], i) => statRow(l, v, 68 + i * 30, 440)).join("");
+  const body = rows.map(([l, v], i) => statRow(l, v, 66 + i * 26, 440)).join("");
 
   const scope = d.includesPrivate ? "INCL PRIVATE" : "PUBLIC ONLY";
   const scopeScale = 3;
