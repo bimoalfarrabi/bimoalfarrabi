@@ -31,6 +31,7 @@ jobs:
 
       - name: Generate cards
         env:
+          STATS_TOKEN: ${{ secrets.STATS_TOKEN }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: node tools/gen-stats.mjs
 

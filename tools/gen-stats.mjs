@@ -1,12 +1,17 @@
 // Generates pixel-art GitHub stats cards from real GitHub API data.
 // Run from the repo root: node tools/gen-stats.mjs
-// Env: GITHUB_TOKEN (optional locally, provided by Actions in CI)
+// Env:
+//   STATS_TOKEN  optional PAT with repo scope; when set, private activity is
+//                counted too. Without it the cards fall back to public data.
+//   GITHUB_TOKEN optional; raises rate limits only.
 
 import { rasterText, textWidth } from "./pixelfx-font.js";
 import fs from "node:fs";
 
 const USER = "bimoalfarrabi";
-const TOKEN = process.env.GITHUB_TOKEN || "";
+const PAT = process.env.STATS_TOKEN || "";
+const TOKEN = PAT || process.env.GITHUB_TOKEN || "";
+const INCLUDES_PRIVATE = Boolean(PAT);
 const C = {
   void: "#05070A",
   phos: "#3BFF8F",
@@ -112,7 +117,14 @@ async function languageBytes(repos) {
 
 async function collect() {
   const user = await get(`https://api.github.com/users/${USER}`);
-  const repos = await paginate(`https://api.github.com/users/${USER}/repos?type=owner`);
+
+  // /users/:u/repos only ever returns public repos. With a PAT we ask for the
+  // authenticated owner's repos so private work counts too.
+  const repos = INCLUDES_PRIVATE
+    ? await paginate(`https://api.github.com/user/repos?affiliation=owner&visibility=all`)
+    : await paginate(`https://api.github.com/users/${USER}/repos?type=owner`);
+
+  const visibility = INCLUDES_PRIVATE ? "" : " is:public";
 
   const search = async (q) => {
     const r = await get(
@@ -122,7 +134,7 @@ async function collect() {
   };
 
   const commitsRes = await get(
-    `https://api.github.com/search/commits?q=${encodeURIComponent(`author:${USER} is:public`)}&per_page=1`,
+    `https://api.github.com/search/commits?q=${encodeURIComponent(`author:${USER}${visibility}`)}&per_page=1`,
   );
 
   const stars = repos.reduce((a, r) => a + r.stargazers_count, 0);
@@ -137,9 +149,10 @@ async function collect() {
   return {
     stars,
     commits: commitsRes.total_count,
-    prs: await search(`author:${USER} type:pr is:public`),
-    issues: await search(`author:${USER} type:issue is:public`),
+    prs: await search(`author:${USER} type:pr${visibility}`),
+    issues: await search(`author:${USER} type:issue${visibility}`),
     followers: user.followers,
+    includesPrivate: INCLUDES_PRIVATE,
     topLangs,
   };
 }
@@ -172,18 +185,24 @@ function statsCard(d) {
   const H = 230;
   const rows = [
     ["TOTAL STARS", d.stars],
-    ["PUBLIC COMMITS", d.commits],
+    [d.includesPrivate ? "TOTAL COMMITS" : "PUBLIC COMMITS", d.commits],
     ["PULL REQUESTS", d.prs],
     ["ISSUES OPENED", d.issues],
     ["FOLLOWERS", d.followers],
   ];
   const body = rows.map(([l, v], i) => statRow(l, v, 68 + i * 30, 440)).join("");
 
+  const scope = d.includesPrivate ? "INCL PRIVATE" : "PUBLIC ONLY";
+  const scopeScale = 3;
+  const scopeX = W - 40 - textWidth(scope, "mini") * scopeScale;
+  const scopeTag = textPath(scope, "mini", scopeScale, scopeX, 30, C.phos, 0.6);
+
   return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${W} ${H}" width="${W}" height="${H}" role="img" shape-rendering="crispEdges">
   <title>Bimo Alfarrabi GitHub stats</title>
-  <desc>Pixel art stats. ${rows.map(([l, v]) => `${l.toLowerCase()} ${v}`).join(", ")}. Counts cover public activity only.</desc>
+  <desc>Pixel art stats. ${rows.map(([l, v]) => `${l.toLowerCase()} ${v}`).join(", ")}. ${d.includesPrivate ? "Counts include private repositories." : "Counts cover public activity only."}</desc>
   ${frame(W, H)}
   ${textPath("// TELEMETRY", "mini", 4, 40, 28, C.phos, 0.85)}
+  ${scopeTag}
   <rect x="40" y="46" width="540" height="4" fill="${C.dim}"/>
   ${body}
 </svg>
